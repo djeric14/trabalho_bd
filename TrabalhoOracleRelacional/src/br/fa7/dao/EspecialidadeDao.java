@@ -4,23 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import br.fa7.connection.ConnectionOracle;
+public class EspecialidadeDao extends BaseDao{
 
-public class EspecialidadeDao {
-
-	private Connection connection;
 	private PreparedStatement stmt;
+	private Connection connection;
 
 	public EspecialidadeDao() {
-		try {
-			connection = ConnectionOracle.getConnection();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		connection = getConnection();
 	}
 
 	public void adicionar(Long id, String nome) throws SQLException {
