@@ -6,10 +6,9 @@ import java.sql.SQLException;
 
 public class ConnectionOracle {
 
-	public static Connection getConnection() throws ClassNotFoundException, SQLException{
-
+	public static Connection getConnection() throws  SQLException{
+		Connection conn = null;
 		try{
-			Connection conn;
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "TRABALHO_BD", "1234");
 			return conn;

@@ -7,9 +7,15 @@ import br.fa7.connection.ConnectionFactory;
 
 public class BaseDao {
 	
+	private static Connection connection;
+	
 	public static Connection getConnection(){
 		try {
-			return ConnectionFactory.getConnectionFactory(ConnectionFactory.ORACLE).getConnection();
+			if(connection == null){
+				connection = ConnectionFactory.getConnectionFactory(ConnectionFactory.ORACLE).getConnection();
+			}
+			return connection;
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

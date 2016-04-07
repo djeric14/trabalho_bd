@@ -1,66 +1,56 @@
 package br.fa7.controller;
 
-import java.sql.SQLException;
-
 import br.fa7.dao.EspecialidadeDao;
+import br.fa7.model.Especialidade;
 
-public class EspecialidadeController {
+public class EspecialidadeController extends Controller {
 	
 	private static final String[] especialidades = { "Cardiologia", "Gastroentorogia", "Urologia", 
 			"Otorrinolaringologia", "Neulorogia", "Protoclogia", "Hematologia",
 			"Endocrinologia", "Traumatologia", "Ortopedia", "Dermatologia"};
 		
-	private static EspecialidadeDao dao = new EspecialidadeDao();
-	private static Long tempo;
+	private EspecialidadeDao dao = new EspecialidadeDao();
+	private Especialidade especialidade = new Especialidade();
 	
-	public static Long adicionarEspecialidade() throws SQLException{
-		tempo = System.currentTimeMillis();
-		System.out.println("Iniciada a inclusão ...");
+	public void adicionar() {
 		
-		for(Long i = 1L; i <= 100000; i++){
-			dao.adicionar(i,  getEspecialidadeAleatoria());
+		initTimer();
+		System.out.println("Iniciada a inclusão de "+getRegistros() +" especialidades ...");
+		
+		for(Long i = 1L; i <= getRegistros(); i++){
+			especialidade.setId(i);
+			especialidade.setNome(getEspecialidadeAleatoria());
+			dao.adicionar(especialidade);
 		}
 			
-		tempo = (System.currentTimeMillis() - tempo) / 1000; 
-		System.out.println("Especialidades adicionadas com sucesso - Tempo: "+ tempo+" segundos");
-		return tempo;
+		System.out.println("Especialidades adicionadas com sucesso - Tempo: "+ finishTimer()+" segundos");
 	}
 	
-	public static Long alterarEspecialidade() throws SQLException{
-		tempo = System.currentTimeMillis();
-		System.out.println("Iniciada a alteração ...");
+	public void alterar() {
+		initTimer();
+		System.out.println("Iniciada a alteração das especialidades ...");
 		
-		for(Long i = 1L; i <= 100000; i++){
-			dao.alterar(i,  getEspecialidadeAleatoria());
+		for(Long i = 1L; i <= getRegistros(); i++){
+			especialidade.setId(i);
+			especialidade.setNome(getEspecialidadeAleatoria());
+			dao.alterar(especialidade);
 		}
-			
-		tempo = (System.currentTimeMillis() - tempo) / 1000; 
-		System.out.println("Especialidades alteradas com sucesso - Tempo: "+ tempo+" segundos");
-		return tempo;
+		 
+		System.out.println("Especialidades alteradas com sucesso - Tempo: "+ finishTimer()+" segundos");
 	}
 	
-	public static Long excluirEspecialidade() throws SQLException{
-		tempo = System.currentTimeMillis();
-		System.out.println("Iniciada a exclusão ...");
+	public void excluir() {
+		initTimer();
+		System.out.println("Iniciada a exclusão das especialidades ...");
 		
-		for(Long i = 1L; i <= 100000; i++){
-			dao.excluir(i);
-		}
+		dao.excluir();
 			
-		tempo = (System.currentTimeMillis() - tempo) / 1000; 
-		System.out.println("Especialidades excluídas com sucesso - Tempo: "+ tempo+" segundos");
-		return tempo;
-	}
-	
-	public static void fechar() throws SQLException{
-		dao.fechar();
+		System.out.println("Especialidades excluídas com sucesso - Tempo: "+ finishTimer()+" segundos");
 	}
 	
 
-	private static String getEspecialidadeAleatoria() {
+	private String getEspecialidadeAleatoria() {
 		int posicao = (int) Math.round(Math.random() * (especialidades.length - 1));
 		return especialidades[posicao];
 	}
-	
-	
 }

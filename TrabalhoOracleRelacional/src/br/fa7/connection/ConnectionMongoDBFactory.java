@@ -3,7 +3,7 @@ package br.fa7.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
 
 public class ConnectionMongoDBFactory extends ConnectionFactory {
 
@@ -14,7 +14,7 @@ public class ConnectionMongoDBFactory extends ConnectionFactory {
 	}
 
 	@Override
-	public MongoDatabase getConnectionMongoDB() {
+	public MongoClient getConnectionMongoDB() {
 		// TODO Auto-generated method stub
 		return ConnectionMongoDB.getConnection();
 	}

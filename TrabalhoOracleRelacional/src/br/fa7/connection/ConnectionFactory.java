@@ -3,7 +3,7 @@ package br.fa7.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
 
 public abstract class ConnectionFactory {
 	public static final int ORACLE = 1;
@@ -11,7 +11,7 @@ public abstract class ConnectionFactory {
 	public static final int BD_IN_MEMORY = 3;
 
 	public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
-	public abstract MongoDatabase getConnectionMongoDB();
+	public abstract MongoClient getConnectionMongoDB();
 	
 	public static ConnectionFactory getConnectionFactory(int db) {
 		switch (db) {
